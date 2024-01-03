@@ -1,6 +1,7 @@
 package ru.spbstu.telematics.java;
 
 import org.junit.Test;
+import java.util.HashSet;
 import static org.junit.Assert.*;
 
 public class MyHashSetTest {
@@ -81,5 +82,61 @@ public class MyHashSetTest {
         String expected = result.substring(0, result.length() - 2);
 
         assertEquals("1, 2, 3", expected);
+    }
+
+    @Test
+    public void testCollections() {
+        // Сравнение MyHashSet и HashSet
+        MyHashSet<Integer> myHashSet = new MyHashSet<>();
+        HashSet<Integer> javaHashSet = new HashSet<>();
+
+        // Добавление элементов
+        myHashSet.add(1);
+        myHashSet.add(2);
+        myHashSet.add(3);
+
+        javaHashSet.add(1);
+        javaHashSet.add(2);
+        javaHashSet.add(3);
+
+        // Сравнение размеров
+        assertEquals(myHashSet.size(), javaHashSet.size());
+
+        // Сравнение содержания
+        assertTrue(myHashSet.contains(1));
+        assertTrue(myHashSet.contains(2));
+        assertTrue(myHashSet.contains(3));
+
+        assertEquals(myHashSet.contains(4), javaHashSet.contains(4));
+
+        // Удаление элемента
+        myHashSet.remove(2);
+        javaHashSet.remove(2);
+
+        // Сравнение размеров после удаления
+        assertEquals(myHashSet.size(), javaHashSet.size());
+
+        // Сравнение содержания после удаления
+        assertTrue(myHashSet.contains(1));
+        assertFalse(myHashSet.contains(2));
+        assertTrue(myHashSet.contains(3));
+
+        // Сравнение итерации
+        StringBuilder myHashSetResult = new StringBuilder();
+        for (Integer element : myHashSet) {
+            myHashSetResult.append(element).append(", ");
+        }
+
+        StringBuilder javaHashSetResult = new StringBuilder();
+        for (Integer element : javaHashSet) {
+            javaHashSetResult.append(element).append(", ");
+        }
+
+        // Удаление последних двух символов (запятой и пробела) из строки
+        String myHashSetExpected = myHashSetResult.substring(0, myHashSetResult.length() - 2);
+        String javaHashSetExpected = javaHashSetResult.substring(0, javaHashSetResult.length() - 2);
+
+        // Сравнение результатов итерации
+        assertEquals(myHashSetExpected, javaHashSetExpected);
     }
 }
